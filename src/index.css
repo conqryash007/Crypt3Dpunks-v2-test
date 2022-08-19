@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  font-family:"Ubuntu-Light";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: "AdobeFnt23";
+  src: local("AdobeFnt23"),
+    url("./Assets/Document fonts/AdobeFnt23.lst") format("truetype");
+}
+
+@font-face {
+  font-family: "desktop";
+  src: local("desktop"),
+    url("./Assets/Document fonts/desktop.ini") format("truetype");
+}
+
+@font-face {
+  font-family: "Thunder Bold";
+  src: local("Thunder Bold"),
+    url("./Assets/Document fonts/Thunder Bold.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "Ubuntu-Bold";
+  src: local("Ubuntu-Bold"),
+    url("./Assets/Document fonts/Ubuntu-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Ubuntu-Light";
+  src: local("Ubuntu-Light"),
+    url("./Assets/Document fonts/Ubuntu-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Ubuntu-Medium";
+  src: local("Ubuntu-Medium"),
+    url("./Assets/Document fonts/Ubuntu-Medium.ttf") format("truetype");
+  }
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

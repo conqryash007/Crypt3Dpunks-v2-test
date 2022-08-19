@@ -1,0 +1,68 @@
+
+.HowMintbg{
+    background-color: rgb(108 184 217) !important;
+    padding: 30px 0px !important;
+}
+p,a{
+    font-family: "Ubuntu-Light" !important;
+
+}
+.TittleMint {
+    font-family: "Thunder Bold";
+    font-size: 50pt;
+}
+
+.subTitleMint {
+    font-family: "Ubuntu-Bold";
+    font-size: 18pt;
+}
+
+.MintGuide p {
+    font-family: "Ubuntu-Light";
+    font-size: 14pt;
+}
+
+.MintGuide {
+    width: 50%;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.MintGuide a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.MintGuide span {
+    font-weight: 600;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 350px) {
+    .MintGuide {
+        width: 80%;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .MintGuide {
+        width: 60%;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .MintGuide {
+        width: 50%;
+    }
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {}

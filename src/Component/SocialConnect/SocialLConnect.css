@@ -1,0 +1,19 @@
+.div-block-38{
+    background-color: #F4F4F4;
+padding: 20px 0px;
+}
+.div-block-38 div a img{
+width: 60px;
+
+}
+.div-block-38 div a img:hover{
+    filter: invert();
+transition-duration: 0.5s;
+}
+.link-thin{
+    color: black;
+    /* text-decoration: none; */
+}
+.footer-icon-linkblock{
+    margin-left: 10px;
+}
