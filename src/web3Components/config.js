@@ -1,14 +1,20 @@
 import { ABI } from "./artifacts/Crypt3dPunksABI";
 
-// const network = "homestead";
-const network = "rinkeby";
+// const network = { name: "homestead", chainId: 1 };
+const network = { name: "rinkeby", chainId: 4 };
 
 let crypt3dPunksAddress;
 
-if (network === "rinkeby") {
-  crypt3dPunksAddress = "0x2cDC5cF9Cb10F7ece537c72e07Da3BD7C2AF3f2a";
-} else if (network === "homestead") {
+if (network.name === "rinkeby") {
+  crypt3dPunksAddress = "0x49AB6b077F7cE0965fC85A6d3CFa13fB4aF37D77";
+} else if (network.name === "homestead") {
   crypt3dPunksAddress = "";
 }
 
-export { ABI, network, crypt3dPunksAddress };
+const final = {
+  ABI: ABI,
+  network: network,
+  crypt3dPunksAddress,
+};
+
+export { final };

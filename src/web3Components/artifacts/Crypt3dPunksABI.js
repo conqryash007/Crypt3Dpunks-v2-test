@@ -1,5 +1,11 @@
 const ABI = [
-  { inputs: [], stateMutability: "nonpayable", type: "constructor" },
+  {
+    inputs: [
+      { internalType: "address", name: "_ExistingERC1155", type: "address" },
+    ],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
   {
     anonymous: false,
     inputs: [
@@ -106,6 +112,13 @@ const ABI = [
     type: "event",
   },
   {
+    inputs: [],
+    name: "Round",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       { internalType: "uint256", name: "", type: "uint256" },
       { internalType: "uint256", name: "", type: "uint256" },
@@ -133,14 +146,27 @@ const ABI = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "baseURI",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
-      { internalType: "uint256", name: "_round", type: "uint256" },
       { internalType: "uint256", name: "_quantity", type: "uint256" },
       { internalType: "address", name: "_to", type: "address" },
     ],
     name: "batchMint",
     outputs: [],
     stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256[]", name: "nftIds", type: "uint256[]" }],
+    name: "batchSwapExistingUsers",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -168,7 +194,11 @@ const ABI = [
     inputs: [],
     name: "currentState",
     outputs: [
-      { internalType: "enum Crypto3d.CurrentState", name: "", type: "uint8" },
+      {
+        internalType: "enum Crypto3dTest.CurrentState",
+        name: "",
+        type: "uint8",
+      },
     ],
     stateMutability: "view",
     type: "function",
@@ -318,13 +348,6 @@ const ABI = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "uint256", name: "nftId", type: "uint256" }],
-    name: "swapExistingUsers",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [],
     name: "symbol",
     outputs: [{ internalType: "string", name: "", type: "string" }],
@@ -364,6 +387,24 @@ const ABI = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "string", name: "_newbaseURI", type: "string" }],
+    name: "updateBaseUri",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256", name: "round", type: "uint256" },
+      { internalType: "uint256", name: "batch", type: "uint256" },
+      { internalType: "uint256", name: "updatedValue", type: "uint256" },
+    ],
+    name: "updatePrice",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "withdrawEthers",
     outputs: [],
@@ -371,5 +412,4 @@ const ABI = [
     type: "function",
   },
 ];
-
 export { ABI };
