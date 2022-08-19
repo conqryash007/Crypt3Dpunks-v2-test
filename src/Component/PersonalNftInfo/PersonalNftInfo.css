@@ -148,6 +148,8 @@
   }
   .PersonalNftInfoTitle {
     font-size: 75px;
+    margin-bottom: 50px;
+    margin-top: 20px;
   }
   .PersonalNftINfoList p {
     background-color: #ecebeb;
