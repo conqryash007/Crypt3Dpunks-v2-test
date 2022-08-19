@@ -682,10 +682,14 @@ const PersonalNftInfo = ({ cryptContract, account, connectWallet }) => {
               </div>
             </div>
             <div>
-              <p className="address">{`${String(account).substring(
-                0,
-                7
-              )}...${String(account).slice(-6)}`}</p>
+              {account ? (
+                <p className="address">{`${String(account).substring(
+                  0,
+                  7
+                )}...${String(account).slice(-6)}`}</p>
+              ) : (
+                <p className="address">...</p>
+              )}
             </div>
             <div className="mt-3">
               {account ? (
