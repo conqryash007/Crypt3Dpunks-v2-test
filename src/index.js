@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 // toastify css
 import "react-toastify/dist/ReactToastify.css";
+ // You can also use <link> for styles
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Assets/Document fonts/AdobeFnt23.lst";

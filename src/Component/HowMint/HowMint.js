@@ -3,7 +3,7 @@ import "./HowMInt.css";
 const HowMint = () => {
   return (
       <div className="HowMintbg">
-        <div>
+        <div data-aos="fade-left"  data-aos-duration="2000">
           <ul className="MintGuide">
             <h3 className="subTitleMint mb-5">HOW TO MINT YOUR CRYPT3D PUNK NFT?</h3>
 

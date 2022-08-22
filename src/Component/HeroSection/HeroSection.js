@@ -11,7 +11,7 @@ const HeroSection = () => {
       <div className="mainHeader">
         <Container>
           <Row lg={2}>
-            <Col>
+            <Col data-aos="fade-in" data-aos-duration="3000">
               <img
                 style={{ marginTop: "100px", marginLeft: "-50%" }}
                 width="150%"
@@ -19,18 +19,23 @@ const HeroSection = () => {
                 alt=""
               />
             </Col>
-            <Col className="d-flex align-items-center">
+            <Col className="d-flex align-items-center" data-aos="zoom-in"  data-aos-duration="3000">
+             <div >
               <img
+
+                
                 style={{ marginTop: "100px" }}
                 width="100%"
                 src={HeaderTittle}
                 alt=""
-              />
+              />              
+             </div>
+
             </Col>
           </Row>
         </Container>
       </div>
-      <div className="HeaderContent">
+      <div className="HeaderContent" data-aos="fade-down" data-aos-duration="1000">
         <Nav>
           <Nav.Link href="https://www.crypt3dpunks.io/#ROADMAP">ABOUT</Nav.Link>
           <Nav.Link href="https://www.crypt3dpunks.io/roadmap#2">
