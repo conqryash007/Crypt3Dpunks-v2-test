@@ -6,7 +6,7 @@ const network = { name: "rinkeby", chainId: 4 };
 let crypt3dPunksAddress;
 
 if (network.name === "rinkeby") {
-  crypt3dPunksAddress = "0x996BFE6D73902Dac82089d617bF5592f05708c07";
+  crypt3dPunksAddress = "0xa0957418DA97756532Ae2aA553B68B316bbCDf9F";
 } else if (network.name === "homestead") {
   crypt3dPunksAddress = "";
 }
