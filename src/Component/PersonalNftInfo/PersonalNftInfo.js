@@ -618,11 +618,25 @@ const PersonalNftInfo = ({ cryptContract, account, connectWallet }) => {
         style={{ margin: "auto" }}
       >
         <Col>
-          <img data-aos="fade-left" data-aos-duration="2000" width="100%" src={PersonalNftImage} alt="" />
+          <img
+            data-aos="fade-left"
+            data-aos-duration="2000"
+            width="100%"
+            src={PersonalNftImage}
+            alt=""
+          />
         </Col>
-        <Col>
+        <Col className="max-col">
           <div style={{ width: "100%" }}>
-            <h1 className="uppercase PersonalNftInfoTitle">Mint Your Nft</h1>
+            <span className="text-mint-pot">
+              <span
+                className="shadow-txt"
+                data-aos="fade-in"
+                data-aos-duration="3000"
+              >
+                MINTING PORTAL
+              </span>
+            </span>
             <div className="d-flex justify-content-center gap-2">
               <div className="PersonalNftINfoList">
                 <p>CURRENT TIER</p>
@@ -691,7 +705,7 @@ const PersonalNftInfo = ({ cryptContract, account, connectWallet }) => {
                 <p className="address">...</p>
               )}
             </div>
-            <div className="mt-3" >
+            <div className="mt-3">
               {account ? (
                 <>
                   <button onClick={mintCrypt3dPunk} className="Connect_wallet">
@@ -699,7 +713,7 @@ const PersonalNftInfo = ({ cryptContract, account, connectWallet }) => {
                   </button>
                 </>
               ) : (
-                <button  onClick={connectWallet} className="Connect_wallet">
+                <button onClick={connectWallet} className="Connect_wallet">
                   CONNECT WALLET
                 </button>
               )}
