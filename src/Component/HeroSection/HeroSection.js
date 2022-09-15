@@ -43,13 +43,13 @@ const HeroSection = () => {
         data-aos-duration="1000"
       >
         <Nav>
-          <Nav.Link href="https://www.crypt3dpunks.io/#ROADMAP">ABOUT</Nav.Link>
+          <Nav.Link href="https://www.crypt3dpunks.io/#ROADMAP">About</Nav.Link>
           <Nav.Link href="https://www.crypt3dpunks.io/roadmap#2">
-            ROADMAP
+            Roadmap
           </Nav.Link>
-          <Nav.Link href="https://www.crypt3dpunks.io/punk-lore">LORE</Nav.Link>
-          <Nav.Link href="https://www.crypt3dpunks.io/team">TEAM</Nav.Link>
-          <Nav.Link href="https://www.crypt3dpunks.io/#mint">MINT</Nav.Link>
+          <Nav.Link href="https://www.crypt3dpunks.io/punk-lore">Lore</Nav.Link>
+          <Nav.Link href="https://www.crypt3dpunks.io/team">Team</Nav.Link>
+          <Nav.Link href="https://www.crypt3dpunks.io/#mint">Mint</Nav.Link>
           <Nav.Link href="https://www.crypt3dpunks.io/#faq">FAQ</Nav.Link>
         </Nav>
       </div>
