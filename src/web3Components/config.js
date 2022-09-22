@@ -2,7 +2,9 @@ import { ABI } from "./artifacts/Crypt3dPunksABI";
 import { ERC20ABI } from "./artifacts/ERC20ABI";
 
 // const network = { name: "homestead", chainId: 1 };
-const network = { name: "rinkeby", chainId: 4 };
+// const network = { name: "rinkeby", chainId: 4 };
+const network = { name: "goerli", chainId: 5 };
+
 // "DAI", "USDT", "BUSD", "TUSD"
 let crypt3dPunksAddress, oldcrypt3dPunksAddress, DAI, USDT, BUSD, TUSD, USDC;
 
@@ -22,6 +24,14 @@ if (network.name === "rinkeby") {
   USDT = "0xdAC17F958D2ee523a2206206994597C13D831ec7";
   BUSD = "0x4Fabb145d64652a948d72533023f6E7A623C7C53";
   TUSD = "0x0000000000085d4780B73119b644AE5ecd22b376";
+} else if (network.name === "goerli") {
+  oldcrypt3dPunksAddress = "0xE1068835a265c9Dc01723152C91f760802D26723";
+  crypt3dPunksAddress = "0x9d6A0Dcb231E5F9082394d6aaAe10e76D22f3481";
+  USDT = "0x8d55B7E009A0E9c2645F33157CF521BA33cADebF";
+  USDC = "0x49A4ff71Ec8Fc92A574721CbE46F6E1ce7392231";
+  DAI = "0x8d55B7E009A0E9c2645F33157CF521BA33cADebF";
+  BUSD = "0x8d55B7E009A0E9c2645F33157CF521BA33cADebF";
+  TUSD = "0x8d55B7E009A0E9c2645F33157CF521BA33cADebF";
 }
 
 const final = {
