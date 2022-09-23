@@ -3070,65 +3070,53 @@ const PersonalNftInfo = ({
   const [approvedAmounts, setApprovedAmounts] = useState([]);
   const [multiplier, setMultiplier] = useState([]);
 
-  const getPricingEth = async () => {
+  const getPricingEth = async (round) => {
     let promises = [];
-    const res = [];
 
-    for (let i = 0; i < 11; i++) {
-      for (let j = 0; j < 6; j++) {
-        promises.push(cryptContract.amountInEthers(i, j));
-      }
-      let result = await Promise.all(promises);
-      result = result.map((curr) =>
-        ethers.utils.formatEther(String(parseInt(curr._hex)))
-      );
-      promises = [];
-      res.push(result);
+    for (let j = 0; j < 6; j++) {
+      promises.push(cryptContract.amountInEthers(round, j));
     }
+    let result = await Promise.all(promises);
+    result = result.map((curr) =>
+      Number(ethers.utils.formatEther(String(parseInt(curr._hex))))
+    );
 
-    return res;
+    console.log(result);
+
+    return result;
   };
 
-  const otherCurrencyPricing = async (idx, mult) => {
+  const otherCurrencyPricing = async (idx, mult, round) => {
     if (mult.length === 1) return;
 
     let promises = [];
-    const res = [];
 
-    for (let i = 0; i < 11; i++) {
-      for (let j = 0; j < 6; j++) {
-        promises.push(cryptContract.amountInCryptoCurrency(idx, i, j));
-      }
-      let result = await Promise.all(promises);
-      result = result.map((curr) =>
-        ethers.utils.formatUnits(
-          String(parseInt(curr._hex)),
-          Number(mult[idx + 1])
-        )
-      );
-      promises = [];
-      res.push(result);
+    for (let j = 0; j < 6; j++) {
+      promises.push(cryptContract.amountInCryptoCurrency(idx, round, j));
     }
+    let result = await Promise.all(promises);
+    result = result.map((curr) =>
+      ethers.utils.formatUnits(
+        String(parseInt(curr._hex)),
+        Number(mult[idx + 1])
+      )
+    );
 
-    console.log(mult, res);
-
-    return res;
+    return result;
   };
 
-  const getPriceListUpdate = async (k, mult) => {
-    let pricing = await otherCurrencyPricing(k, mult);
+  const getPriceListUpdate = async (k, mult, r) => {
+    let pricing = await otherCurrencyPricing(k, mult, r);
 
-    for (let i = 1; i < pricing.length; i++) {
-      for (let j = 0; j < pricing[0].length; j++) {
-        let obj = allCurrencyRoundInfoArray[k + 1][i][j];
-        obj.total = pricing[i][j];
-        obj.each = (obj.total / obj.number).toFixed(5);
-        obj.save = calcSave(
-          allCurrencyRoundInfoArray[k + 1][i][0].each,
-          obj.each,
-          obj.number
-        );
-      }
+    for (let j = 0; j < pricing.length; j++) {
+      let obj = allCurrencyRoundInfoArray[k + 1][r][j];
+      obj.total = pricing[j];
+      obj.each = (obj.total / obj.number).toFixed(5);
+      obj.save = calcSave(
+        allCurrencyRoundInfoArray[k + 1][r][0].each,
+        obj.each,
+        obj.number
+      );
     }
   };
 
@@ -3157,20 +3145,19 @@ const PersonalNftInfo = ({
         }
         let approved = [""];
         if (mult.length > 0 && account) {
-          const pricingETH = await getPricingEth();
+          const pricingETH = await getPricingEth(currentRound);
 
           let pricing = pricingETH;
-          for (let i = 1; i < pricing.length; i++) {
-            for (let j = 0; j < pricing[0].length; j++) {
-              let obj = allCurrencyRoundInfoArray[0][i][j];
-              obj.total = pricing[i][j];
-              obj.each = (obj.total / obj.number).toFixed(5);
-              obj.save = calcSave(
-                allCurrencyRoundInfoArray[0][i][0].each,
-                obj.each,
-                obj.number
-              );
-            }
+
+          for (let j = 0; j < pricing.length; j++) {
+            let obj = allCurrencyRoundInfoArray[0][currentRound][j];
+            obj.total = pricing[j];
+            obj.each = (obj.total / obj.number).toFixed(5);
+            obj.save = calcSave(
+              allCurrencyRoundInfoArray[0][currentRound][0].each,
+              obj.each,
+              obj.number
+            );
           }
 
           let tmp = [...loaded];
@@ -3178,7 +3165,7 @@ const PersonalNftInfo = ({
           setLoaded(tmp);
 
           // ---------------------------
-          await getPriceListUpdate(0, mult);
+          await getPriceListUpdate(0, mult, currentRound);
 
           let c1 = await cUSDT.allowance(account, final.crypt3dPunksAddress);
           c1 = Number(
@@ -3187,11 +3174,14 @@ const PersonalNftInfo = ({
           approved.push(c1);
           setApprovedAmounts(approved);
 
-          tmp[1] = 1;
-          setLoaded(tmp);
+          setLoaded((tmp) => {
+            let t = [...tmp];
+            t[1] = 1;
+            return t;
+          });
 
           // ---------------------------
-          await getPriceListUpdate(1, mult);
+          await getPriceListUpdate(1, mult, currentRound);
 
           let c2 = await cUSDC.allowance(account, final.crypt3dPunksAddress);
           c2 = Number(
@@ -3200,11 +3190,14 @@ const PersonalNftInfo = ({
           approved.push(c2);
           setApprovedAmounts(approved);
 
-          tmp[2] = 1;
-          setLoaded(tmp);
+          setLoaded((tmp) => {
+            let t = [...tmp];
+            t[2] = 1;
+            return t;
+          });
 
           // ---------------------------
-          await getPriceListUpdate(2, mult);
+          await getPriceListUpdate(2, mult, currentRound);
 
           let c3 = await cDAI.allowance(account, final.crypt3dPunksAddress);
           c3 = Number(
@@ -3213,11 +3206,14 @@ const PersonalNftInfo = ({
           approved.push(c3);
           setApprovedAmounts(approved);
 
-          tmp[3] = 1;
-          setLoaded(tmp);
+          setLoaded((tmp) => {
+            let t = [...tmp];
+            t[3] = 1;
+            return t;
+          });
 
           // ---------------------------
-          await getPriceListUpdate(3, mult);
+          await getPriceListUpdate(3, mult, currentRound);
           let c4 = await cBUSD.allowance(account, final.crypt3dPunksAddress);
           c4 = Number(
             ethers.utils.formatUnits(String(parseInt(c4._hex)), Number(mult[4]))
@@ -3225,8 +3221,11 @@ const PersonalNftInfo = ({
           approved.push(c4);
           setApprovedAmounts(approved);
 
-          tmp[4] = 1;
-          setLoaded(tmp);
+          setLoaded((tmp) => {
+            let t = [...tmp];
+            t[4] = 1;
+            return t;
+          });
         }
       } catch (err) {
         console.log(err);
