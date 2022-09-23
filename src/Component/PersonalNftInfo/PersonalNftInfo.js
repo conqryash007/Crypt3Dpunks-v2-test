@@ -3064,7 +3064,7 @@ const PersonalNftInfo = ({
 }) => {
   const [round, setRound] = useState(null); // 1 - 10
   const [batchNumber, setBatchNumber] = useState(0); // 0-6
-  const [loading, setLoading] = useState(true);
+  const [loaded, setLoaded] = useState([0, 0, 0, 0, 0]);
   const [isPaused, setIsPaused] = useState(false);
   const [whichCurr, setWhichCurr] = useState(0); // 0 - 4
   const [approvedAmounts, setApprovedAmounts] = useState([]);
@@ -3115,6 +3115,23 @@ const PersonalNftInfo = ({
     return res;
   };
 
+  const getPriceListUpdate = async (k, mult) => {
+    let pricing = await otherCurrencyPricing(k, mult);
+
+    for (let i = 1; i < pricing.length; i++) {
+      for (let j = 0; j < pricing[0].length; j++) {
+        let obj = allCurrencyRoundInfoArray[k + 1][i][j];
+        obj.total = pricing[i][j];
+        obj.each = (obj.total / obj.number).toFixed(5);
+        obj.save = calcSave(
+          allCurrencyRoundInfoArray[k + 1][i][0].each,
+          obj.each,
+          obj.number
+        );
+      }
+    }
+  };
+
   useEffect(() => {
     const run = async () => {
       try {
@@ -3141,33 +3158,40 @@ const PersonalNftInfo = ({
 
         if (mult.length > 0) {
           const pricingETH = await getPricingEth();
-          const priceUSDT = await otherCurrencyPricing(0, mult);
-          const priceUSDC = await otherCurrencyPricing(1, mult);
-          const priceDAI = await otherCurrencyPricing(2, mult);
-          const priceBUSD = await otherCurrencyPricing(3, mult);
 
-          const allPricing = [];
-          allPricing.push(pricingETH);
-          allPricing.push(priceUSDT);
-          allPricing.push(priceUSDC);
-          allPricing.push(priceDAI);
-          allPricing.push(priceBUSD);
-
-          for (let k = 0; k < 5; k++) {
-            let pricing = allPricing[k];
-            for (let i = 1; i < pricing.length; i++) {
-              for (let j = 0; j < pricing[0].length; j++) {
-                let obj = allCurrencyRoundInfoArray[k][i][j];
-                obj.total = pricing[i][j];
-                obj.each = (obj.total / obj.number).toFixed(5);
-                obj.save = calcSave(
-                  allCurrencyRoundInfoArray[k][i][0].each,
-                  obj.each,
-                  obj.number
-                );
-              }
+          let pricing = pricingETH;
+          for (let i = 1; i < pricing.length; i++) {
+            for (let j = 0; j < pricing[0].length; j++) {
+              let obj = allCurrencyRoundInfoArray[0][i][j];
+              obj.total = pricing[i][j];
+              obj.each = (obj.total / obj.number).toFixed(5);
+              obj.save = calcSave(
+                allCurrencyRoundInfoArray[0][i][0].each,
+                obj.each,
+                obj.number
+              );
             }
           }
+
+          let tmp = [...loaded];
+          tmp[0] = 1;
+          setLoaded(tmp);
+
+          await getPriceListUpdate(0, mult);
+          tmp[1] = 1;
+          setLoaded(tmp);
+
+          await getPriceListUpdate(1, mult);
+          tmp[2] = 1;
+          setLoaded(tmp);
+
+          await getPriceListUpdate(2, mult);
+          tmp[3] = 1;
+          setLoaded(tmp);
+
+          await getPriceListUpdate(3, mult);
+          tmp[4] = 1;
+          setLoaded(tmp);
         }
 
         let approved = [""];
@@ -3196,8 +3220,6 @@ const PersonalNftInfo = ({
 
           setApprovedAmounts(approved);
         }
-
-        setLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -3412,6 +3434,7 @@ const PersonalNftInfo = ({
     }
   };
 
+  console.log(loaded);
   return (
     <div className="PersonalNftInfoTable ">
       <ToastContainer
@@ -3471,9 +3494,17 @@ const PersonalNftInfo = ({
                 <p>CHANCE TO WIN</p>
               </div>
               <div className="PersonalNftINfoValue">
-                {loading ? (
+                {loaded[whichCurr] === 0 ? (
                   <>
-                    <p>Loading...</p>
+                    <p>
+                      <button className="btn-inc-dec" onClick={decCurrNum}>
+                        {"<"}
+                      </button>{" "}
+                      <span>{currency[whichCurr]} </span>
+                      <button className="btn-inc-dec" onClick={incCurrNum}>
+                        {">"}
+                      </button>
+                    </p>
                     <p>Loading...</p>
                     <p>Loading...</p>
                     <p>Loading...</p>
@@ -3484,7 +3515,15 @@ const PersonalNftInfo = ({
                   </>
                 ) : isPaused ? (
                   <>
-                    <p>ETH</p>
+                    <p>
+                      <button className="btn-inc-dec" onClick={decCurrNum}>
+                        {"<"}
+                      </button>{" "}
+                      <span>{currency[whichCurr]} </span>
+                      <button className="btn-inc-dec" onClick={incCurrNum}>
+                        {">"}
+                      </button>
+                    </p>
                     <p>Paused</p>
                     <p>0</p>
                     <p>0</p>
@@ -3538,7 +3577,7 @@ const PersonalNftInfo = ({
                 whichCurr === 0 ? (
                   <>
                     <button
-                      disabled={loading}
+                      disabled={loaded[0] === 0}
                       onClick={mintCrypt3dPunkETH}
                       className="Connect_wallet"
                     >
