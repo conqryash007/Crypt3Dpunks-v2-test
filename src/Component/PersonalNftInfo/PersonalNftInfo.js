@@ -3071,53 +3071,59 @@ const PersonalNftInfo = ({
   const [multiplier, setMultiplier] = useState([]);
 
   const getPricingEth = async (round) => {
-    let promises = [];
+    try {
+      let promises = [];
 
-    for (let j = 0; j < 6; j++) {
-      promises.push(cryptContract.amountInEthers(round, j));
-    }
-    let result = await Promise.all(promises);
-    result = result.map((curr) =>
-      Number(ethers.utils.formatEther(String(parseInt(curr._hex))))
-    );
+      for (let j = 0; j < 6; j++) {
+        promises.push(cryptContract.amountInEthers(round, j));
+      }
+      let result = await Promise.all(promises);
+      result = result.map((curr) =>
+        Number(ethers.utils.formatEther(String(parseInt(curr._hex))))
+      );
 
-    console.log(result);
+      console.log(result);
 
-    return result;
+      return result;
+    } catch (err) {}
   };
 
   const otherCurrencyPricing = async (idx, mult, round) => {
-    if (mult.length === 1) return;
+    try {
+      if (mult.length === 1) return;
 
-    let promises = [];
+      let promises = [];
 
-    for (let j = 0; j < 6; j++) {
-      promises.push(cryptContract.amountInCryptoCurrency(idx, round, j));
-    }
-    let result = await Promise.all(promises);
-    result = result.map((curr) =>
-      ethers.utils.formatUnits(
-        String(parseInt(curr._hex)),
-        Number(mult[idx + 1])
-      )
-    );
+      for (let j = 0; j < 6; j++) {
+        promises.push(cryptContract.amountInCryptoCurrency(idx, round, j));
+      }
+      let result = await Promise.all(promises);
+      result = result.map((curr) =>
+        ethers.utils.formatUnits(
+          String(parseInt(curr._hex)),
+          Number(mult[idx + 1])
+        )
+      );
 
-    return result;
+      return result;
+    } catch (err) {}
   };
 
   const getPriceListUpdate = async (k, mult, r) => {
-    let pricing = await otherCurrencyPricing(k, mult, r);
+    try {
+      let pricing = await otherCurrencyPricing(k, mult, r);
 
-    for (let j = 0; j < pricing.length; j++) {
-      let obj = allCurrencyRoundInfoArray[k + 1][r][j];
-      obj.total = pricing[j];
-      obj.each = (obj.total / obj.number).toFixed(5);
-      obj.save = calcSave(
-        allCurrencyRoundInfoArray[k + 1][r][0].each,
-        obj.each,
-        obj.number
-      );
-    }
+      for (let j = 0; j < pricing.length; j++) {
+        let obj = allCurrencyRoundInfoArray[k + 1][r][j];
+        obj.total = pricing[j];
+        obj.each = (obj.total / obj.number).toFixed(5);
+        obj.save = calcSave(
+          allCurrencyRoundInfoArray[k + 1][r][0].each,
+          obj.each,
+          obj.number
+        );
+      }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -3406,44 +3412,47 @@ const PersonalNftInfo = ({
   };
 
   const getElementForOtherCurrency = () => {
-    const targetObj = allCurrencyRoundInfoArray[whichCurr][round][batchNumber];
-    console.log(approvedAmounts, whichCurr);
-    console.log(
-      "---",
-      Number(targetObj.total),
-      Number(approvedAmounts[whichCurr])
-    );
-    if (Number(approvedAmounts[whichCurr]) >= Number(targetObj.total)) {
-      return (
-        <>
-          <button
-            disabled={loaded[whichCurr] === 0}
-            onClick={mintCrypt3dPunkOther}
-            className="Connect_wallet"
-          >
-            {`Mint using ${currency[whichCurr]}`}
-          </button>
-        </>
+    try {
+      const targetObj =
+        allCurrencyRoundInfoArray[whichCurr][round][batchNumber];
+      console.log(approvedAmounts, whichCurr);
+      console.log(
+        "---",
+        Number(targetObj.total),
+        Number(approvedAmounts[whichCurr])
       );
-    } else {
-      return (
-        <>
-          <button
-            disabled={loaded[whichCurr] === 0}
-            onClick={() =>
-              approveCurrency(
+      if (Number(approvedAmounts[whichCurr]) >= Number(targetObj.total)) {
+        return (
+          <>
+            <button
+              disabled={loaded[whichCurr] === 0}
+              onClick={mintCrypt3dPunkOther}
+              className="Connect_wallet"
+            >
+              {`Mint using ${currency[whichCurr]}`}
+            </button>
+          </>
+        );
+      } else {
+        return (
+          <>
+            <button
+              disabled={loaded[whichCurr] === 0}
+              onClick={() =>
+                approveCurrency(
+                  Number(targetObj.total) - Number(approvedAmounts[whichCurr])
+                )
+              }
+              className="Connect_wallet"
+            >
+              {`Approve ${
                 Number(targetObj.total) - Number(approvedAmounts[whichCurr])
-              )
-            }
-            className="Connect_wallet"
-          >
-            {`Approve ${
-              Number(targetObj.total) - Number(approvedAmounts[whichCurr])
-            }  ${currency[whichCurr]}`}
-          </button>
-        </>
-      );
-    }
+              }  ${currency[whichCurr]}`}
+            </button>
+          </>
+        );
+      }
+    } catch (err) {}
   };
 
   const getData = () => {
