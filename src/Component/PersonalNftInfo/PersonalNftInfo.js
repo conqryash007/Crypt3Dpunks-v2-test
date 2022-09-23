@@ -3155,8 +3155,8 @@ const PersonalNftInfo = ({
 
           setMultiplier(mult);
         }
-
-        if (mult.length > 0) {
+        let approved = [""];
+        if (mult.length > 0 && account) {
           const pricingETH = await getPricingEth();
 
           let pricing = pricingETH;
@@ -3177,48 +3177,56 @@ const PersonalNftInfo = ({
           tmp[0] = 1;
           setLoaded(tmp);
 
+          // ---------------------------
           await getPriceListUpdate(0, mult);
-          tmp[1] = 1;
-          setLoaded(tmp);
 
-          await getPriceListUpdate(1, mult);
-          tmp[2] = 1;
-          setLoaded(tmp);
-
-          await getPriceListUpdate(2, mult);
-          tmp[3] = 1;
-          setLoaded(tmp);
-
-          await getPriceListUpdate(3, mult);
-          tmp[4] = 1;
-          setLoaded(tmp);
-        }
-
-        let approved = [""];
-        if (account) {
           let c1 = await cUSDT.allowance(account, final.crypt3dPunksAddress);
           c1 = Number(
             ethers.utils.formatUnits(String(parseInt(c1._hex)), Number(mult[1]))
           );
+          approved.push(c1);
+          setApprovedAmounts(approved);
+
+          tmp[1] = 1;
+          setLoaded(tmp);
+
+          // ---------------------------
+          await getPriceListUpdate(1, mult);
+
           let c2 = await cUSDC.allowance(account, final.crypt3dPunksAddress);
           c2 = Number(
             ethers.utils.formatUnits(String(parseInt(c2._hex)), Number(mult[2]))
           );
+          approved.push(c2);
+          setApprovedAmounts(approved);
+
+          tmp[2] = 1;
+          setLoaded(tmp);
+
+          // ---------------------------
+          await getPriceListUpdate(2, mult);
+
           let c3 = await cDAI.allowance(account, final.crypt3dPunksAddress);
           c3 = Number(
             ethers.utils.formatUnits(String(parseInt(c3._hex)), Number(mult[3]))
           );
+          approved.push(c3);
+          setApprovedAmounts(approved);
+
+          tmp[3] = 1;
+          setLoaded(tmp);
+
+          // ---------------------------
+          await getPriceListUpdate(3, mult);
           let c4 = await cBUSD.allowance(account, final.crypt3dPunksAddress);
           c4 = Number(
             ethers.utils.formatUnits(String(parseInt(c4._hex)), Number(mult[4]))
           );
-
-          approved.push(c1);
-          approved.push(c2);
-          approved.push(c3);
           approved.push(c4);
-
           setApprovedAmounts(approved);
+
+          tmp[4] = 1;
+          setLoaded(tmp);
         }
       } catch (err) {
         console.log(err);
@@ -3409,7 +3417,11 @@ const PersonalNftInfo = ({
     if (Number(approvedAmounts[whichCurr]) >= Number(targetObj.total)) {
       return (
         <>
-          <button onClick={mintCrypt3dPunkOther} className="Connect_wallet">
+          <button
+            disabled={loaded[whichCurr] === 0}
+            onClick={mintCrypt3dPunkOther}
+            className="Connect_wallet"
+          >
             {`Mint using ${currency[whichCurr]}`}
           </button>
         </>
@@ -3418,6 +3430,7 @@ const PersonalNftInfo = ({
       return (
         <>
           <button
+            disabled={loaded[whichCurr] === 0}
             onClick={() =>
               approveCurrency(
                 Number(targetObj.total) - Number(approvedAmounts[whichCurr])
@@ -3434,7 +3447,37 @@ const PersonalNftInfo = ({
     }
   };
 
-  console.log(loaded);
+  const getData = () => {
+    return (
+      <>
+        <p>
+          <button className="btn-inc-dec" onClick={decCurrNum}>
+            {"<"}
+          </button>{" "}
+          <span>{currency[whichCurr]} </span>
+          <button className="btn-inc-dec" onClick={incCurrNum}>
+            {">"}
+          </button>
+        </p>
+        <p>{round}</p>
+        <p>
+          <button className="btn-inc-dec" onClick={decBatchNum}>
+            -
+          </button>{" "}
+          {batch[batchNumber]}{" "}
+          <button className="btn-inc-dec" onClick={incBatchNum}>
+            +
+          </button>
+        </p>
+        <p>{Object(roundInfo[round][batchNumber]).each}</p>
+        <p>{Object(roundInfo[round][batchNumber]).total}</p>
+        <p>{Object(roundInfo[round][batchNumber]).save}</p>
+        <p>{Object(roundInfo[round][batchNumber]).freeLoot}</p>
+        <p>{Object(roundInfo[round][batchNumber]).chanceToWin}</p>
+      </>
+    );
+  };
+
   return (
     <div className="PersonalNftInfoTable ">
       <ToastContainer
@@ -3533,32 +3576,7 @@ const PersonalNftInfo = ({
                     <p>-</p>
                   </>
                 ) : (
-                  <>
-                    <p>
-                      <button className="btn-inc-dec" onClick={decCurrNum}>
-                        {"<"}
-                      </button>{" "}
-                      <span>{currency[whichCurr]} </span>
-                      <button className="btn-inc-dec" onClick={incCurrNum}>
-                        {">"}
-                      </button>
-                    </p>
-                    <p>{round}</p>
-                    <p>
-                      <button className="btn-inc-dec" onClick={decBatchNum}>
-                        -
-                      </button>{" "}
-                      {batch[batchNumber]}{" "}
-                      <button className="btn-inc-dec" onClick={incBatchNum}>
-                        +
-                      </button>
-                    </p>
-                    <p>{Object(roundInfo[round][batchNumber]).each}</p>
-                    <p>{Object(roundInfo[round][batchNumber]).total}</p>
-                    <p>{Object(roundInfo[round][batchNumber]).save}</p>
-                    <p>{Object(roundInfo[round][batchNumber]).freeLoot}</p>
-                    <p>{Object(roundInfo[round][batchNumber]).chanceToWin}</p>
-                  </>
+                  <>{getData()}</>
                 )}
               </div>
             </div>
