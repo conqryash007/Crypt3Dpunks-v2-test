@@ -3157,8 +3157,8 @@ const PersonalNftInfo = ({
 
           for (let j = 0; j < pricing.length; j++) {
             let obj = allCurrencyRoundInfoArray[0][currentRound][j];
-            obj.total = pricing[j];
-            obj.each = (obj.total / obj.number).toFixed(5);
+            obj.total = Number(pricing[j].toFixed(6));
+            obj.each = (obj.total / obj.number).toFixed(6);
             obj.save = calcSave(
               allCurrencyRoundInfoArray[0][currentRound][0].each,
               obj.each,
