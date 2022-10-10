@@ -3132,105 +3132,123 @@ const PersonalNftInfo = ({
         const pausedResult = await cryptContract.paused();
         setIsPaused(pausedResult);
 
-        const currentRound = await cryptContract.currentState();
-        setRound(currentRound);
+        if (!pausedResult) {
+          const currentRound = await cryptContract.currentState();
+          setRound(currentRound);
 
-        let mult = [""];
-        if (account) {
-          let c1 = await cUSDT.decimals();
+          let mult = [""];
+          if (account) {
+            let c1 = await cUSDT.decimals();
 
-          let c2 = await cUSDC.decimals();
+            let c2 = await cUSDC.decimals();
 
-          let c3 = await cDAI.decimals();
+            let c3 = await cDAI.decimals();
 
-          let c4 = await cBUSD.decimals();
+            let c4 = await cBUSD.decimals();
 
-          mult.push(c1, c2, c3, c4);
+            mult.push(c1, c2, c3, c4);
 
-          setMultiplier(mult);
-        }
-        let approved = [""];
-        if (mult.length > 0 && account) {
-          const pricingETH = await getPricingEth(currentRound);
-
-          let pricing = pricingETH;
-
-          for (let j = 0; j < pricing.length; j++) {
-            let obj = allCurrencyRoundInfoArray[0][currentRound][j];
-            obj.total = Number(pricing[j].toFixed(6));
-            obj.each = (obj.total / obj.number).toFixed(6);
-            obj.save = calcSave(
-              allCurrencyRoundInfoArray[0][currentRound][0].each,
-              obj.each,
-              obj.number
-            );
+            setMultiplier(mult);
           }
+          let approved = [""];
+          if (mult.length > 0 && account) {
+            const pricingETH = await getPricingEth(currentRound);
 
-          let tmp = [...loaded];
-          tmp[0] = 1;
-          setLoaded(tmp);
+            let pricing = pricingETH;
 
-          // ---------------------------
-          await getPriceListUpdate(0, mult, currentRound);
+            for (let j = 0; j < pricing.length; j++) {
+              let obj = allCurrencyRoundInfoArray[0][currentRound][j];
+              obj.total = Number(pricing[j].toFixed(6));
+              obj.each = (obj.total / obj.number).toFixed(6);
+              obj.save = calcSave(
+                allCurrencyRoundInfoArray[0][currentRound][0].each,
+                obj.each,
+                obj.number
+              );
+            }
 
-          let c1 = await cUSDT.allowance(account, final.crypt3dPunksAddress);
-          c1 = Number(
-            ethers.utils.formatUnits(String(parseInt(c1._hex)), Number(mult[1]))
-          );
-          approved.push(c1);
-          setApprovedAmounts(approved);
+            let tmp = [...loaded];
+            tmp[0] = 1;
+            setLoaded(tmp);
 
-          setLoaded((tmp) => {
-            let t = [...tmp];
-            t[1] = 1;
-            return t;
-          });
+            // ---------------------------
+            await getPriceListUpdate(0, mult, currentRound);
 
-          // ---------------------------
-          await getPriceListUpdate(1, mult, currentRound);
+            let c1 = await cUSDT.allowance(account, final.crypt3dPunksAddress);
+            c1 = Number(
+              ethers.utils.formatUnits(
+                String(parseInt(c1._hex)),
+                Number(mult[1])
+              )
+            );
+            approved.push(c1);
+            setApprovedAmounts(approved);
 
-          let c2 = await cUSDC.allowance(account, final.crypt3dPunksAddress);
-          c2 = Number(
-            ethers.utils.formatUnits(String(parseInt(c2._hex)), Number(mult[2]))
-          );
-          approved.push(c2);
-          setApprovedAmounts(approved);
+            setLoaded((tmp) => {
+              let t = [...tmp];
+              t[1] = 1;
+              return t;
+            });
 
-          setLoaded((tmp) => {
-            let t = [...tmp];
-            t[2] = 1;
-            return t;
-          });
+            // ---------------------------
+            await getPriceListUpdate(1, mult, currentRound);
 
-          // ---------------------------
-          await getPriceListUpdate(2, mult, currentRound);
+            let c2 = await cUSDC.allowance(account, final.crypt3dPunksAddress);
+            c2 = Number(
+              ethers.utils.formatUnits(
+                String(parseInt(c2._hex)),
+                Number(mult[2])
+              )
+            );
+            approved.push(c2);
+            setApprovedAmounts(approved);
 
-          let c3 = await cDAI.allowance(account, final.crypt3dPunksAddress);
-          c3 = Number(
-            ethers.utils.formatUnits(String(parseInt(c3._hex)), Number(mult[3]))
-          );
-          approved.push(c3);
-          setApprovedAmounts(approved);
+            setLoaded((tmp) => {
+              let t = [...tmp];
+              t[2] = 1;
+              return t;
+            });
 
-          setLoaded((tmp) => {
-            let t = [...tmp];
-            t[3] = 1;
-            return t;
-          });
+            // ---------------------------
+            await getPriceListUpdate(2, mult, currentRound);
 
-          // ---------------------------
-          await getPriceListUpdate(3, mult, currentRound);
-          let c4 = await cBUSD.allowance(account, final.crypt3dPunksAddress);
-          c4 = Number(
-            ethers.utils.formatUnits(String(parseInt(c4._hex)), Number(mult[4]))
-          );
-          approved.push(c4);
-          setApprovedAmounts(approved);
+            let c3 = await cDAI.allowance(account, final.crypt3dPunksAddress);
+            c3 = Number(
+              ethers.utils.formatUnits(
+                String(parseInt(c3._hex)),
+                Number(mult[3])
+              )
+            );
+            approved.push(c3);
+            setApprovedAmounts(approved);
 
-          setLoaded((tmp) => {
-            let t = [...tmp];
-            t[4] = 1;
-            return t;
+            setLoaded((tmp) => {
+              let t = [...tmp];
+              t[3] = 1;
+              return t;
+            });
+
+            // ---------------------------
+            await getPriceListUpdate(3, mult, currentRound);
+            let c4 = await cBUSD.allowance(account, final.crypt3dPunksAddress);
+            c4 = Number(
+              ethers.utils.formatUnits(
+                String(parseInt(c4._hex)),
+                Number(mult[4])
+              )
+            );
+            approved.push(c4);
+            setApprovedAmounts(approved);
+
+            setLoaded((tmp) => {
+              let t = [...tmp];
+              t[4] = 1;
+              return t;
+            });
+          }
+        } else {
+          setLoaded(() => {
+            return [1, 1, 1, 1, 1];
           });
         }
       } catch (err) {
