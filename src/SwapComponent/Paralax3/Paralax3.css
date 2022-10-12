@@ -1,0 +1,27 @@
+.ParalaxImage3 {
+    background-image: url("../../Assets/Links/Background-Crypt3d-PUnks.jpg");
+    background-size:cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 800px;
+}
+
+.ParalaxImage1text {
+    display: flex;
+    align-items: center;
+    height: 800px;
+
+    justify-content: center;
+    color: #fff;
+    font-family: "Thunder Bold";
+}
+
+
+@media (min-width: 368px) {
+    .ParalaxImage1text{font-size: 105px;
+    }}
+    @media (min-width: 668px) {
+    .ParalaxImage1text{font-size: 150px;
+    }}
+    

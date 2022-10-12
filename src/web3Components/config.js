@@ -1,4 +1,5 @@
 import { ABI } from "./artifacts/Crypt3dPunksABI";
+import { oldABI } from "./artifacts/OldCrypt3dPunksABI";
 import { ERC20ABI } from "./artifacts/ERC20ABI";
 
 // const network = { name: "homestead", chainId: 1 };
@@ -36,8 +37,10 @@ if (network.name === "rinkeby") {
 
 const final = {
   ABI: ABI,
+  oldABI: oldABI,
   network: network,
   crypt3dPunksAddress,
+  oldcrypt3dPunksAddress,
   DAI,
   USDT,
   BUSD,

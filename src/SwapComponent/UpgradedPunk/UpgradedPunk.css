@@ -1,0 +1,23 @@
+.upgradeWrap1 p,
+h3,
+a,
+h1 {
+  color: white;
+  font-size: 20px;
+}
+.upgradeWrap1 p,
+h3,
+a,
+h1 {
+  margin-bottom: 30px;
+}
+.upgradeWrap1 h3 {
+  margin-bottom: 30px;
+}
+.upgradeWrap1 h3 a {
+  color: white;
+  text-decoration: none;
+}
+.upgradeWrap1 p a div {
+  font-size: 20px !important;
+}

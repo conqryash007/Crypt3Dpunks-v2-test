@@ -3258,6 +3258,16 @@ const PersonalNftInfo = ({
     if (cryptContract) {
       run();
     }
+
+    return () => {
+      setRound(null);
+      setBatchNumber(0);
+      setLoaded([0, 0, 0, 0, 0]);
+      setIsPaused(false);
+      setWhichCurr(0);
+      setApprovedAmounts([]);
+      setMultiplier([]);
+    };
   }, [cryptContract, account]);
 
   const incBatchNum = () => {
