@@ -1,11 +1,5 @@
 const ABI = [
-  {
-    inputs: [
-      { internalType: "address", name: "_ExistingERC1155", type: "address" },
-    ],
-    stateMutability: "nonpayable",
-    type: "constructor",
-  },
+  { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
     anonymous: false,
     inputs: [
@@ -127,6 +121,13 @@ const ABI = [
   },
   {
     inputs: [],
+    name: "EtherPrice",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "ExistingERC1155",
     outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
@@ -137,6 +138,13 @@ const ABI = [
     name: "Round",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "validator", type: "address" }],
+    name: "addValidator",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -227,6 +235,13 @@ const ABI = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "uint256", name: "_salePrice", type: "uint256" }],
+    name: "calculateRoyalty",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "contractBalance",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
@@ -238,7 +253,7 @@ const ABI = [
     name: "currentState",
     outputs: [
       {
-        internalType: "enum Crypto3dTest.CurrentState",
+        internalType: "enum CyptoPunks3dTest.CurrentState",
         name: "",
         type: "uint8",
       },
@@ -323,6 +338,13 @@ const ABI = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "address", name: "validator", type: "address" }],
+    name: "removeValidator",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "renounceOwnership",
     outputs: [],
@@ -347,6 +369,16 @@ const ABI = [
     inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     name: "roundReveal",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "_salePrice", type: "uint256" }],
+    name: "royaltyInfo",
+    outputs: [
+      { internalType: "address", name: "", type: "address" },
+      { internalType: "uint256", name: "", type: "uint256" },
+    ],
     stateMutability: "view",
     type: "function",
   },
@@ -379,6 +411,16 @@ const ABI = [
       { internalType: "bool", name: "approved", type: "bool" },
     ],
     name: "setApprovalForAll",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "_receiver", type: "address" },
+      { internalType: "uint96", name: "_royaltyFeesInBips", type: "uint96" },
+    ],
+    name: "setRoyaltyInfo",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -430,7 +472,10 @@ const ABI = [
     type: "function",
   },
   {
-    inputs: [],
+    inputs: [
+      { internalType: "bool", name: "newRound", type: "bool" },
+      { internalType: "uint256[]", name: "updatedPrices", type: "uint256[]" },
+    ],
     name: "unpause",
     outputs: [],
     stateMutability: "nonpayable",
@@ -444,13 +489,19 @@ const ABI = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "uint256", name: "price", type: "uint256" }],
+    name: "updateEtherPrice",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [
       { internalType: "uint256", name: "token", type: "uint256" },
       { internalType: "uint256", name: "round", type: "uint256" },
-      { internalType: "uint256", name: "batch", type: "uint256" },
-      { internalType: "uint256", name: "updatedValue", type: "uint256" },
+      { internalType: "uint256[]", name: "updatedValues", type: "uint256[]" },
     ],
-    name: "updatePriceForCryptoCurrency",
+    name: "updatePriceForCryptoCurrencyForaRoundInDollers",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -458,17 +509,55 @@ const ABI = [
   {
     inputs: [
       { internalType: "uint256", name: "round", type: "uint256" },
-      { internalType: "uint256", name: "batch", type: "uint256" },
-      { internalType: "uint256", name: "updatedValue", type: "uint256" },
+      { internalType: "uint256[]", name: "updatedValues", type: "uint256[]" },
     ],
-    name: "updatePriceForEthers",
+    name: "updatePriceForEthersForaRoundInDollers",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
-    inputs: [],
+    inputs: [{ internalType: "address", name: "", type: "address" }],
+    name: "validators",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256", name: "token", type: "uint256" },
+      { internalType: "uint256", name: "decimal", type: "uint256" },
+      { internalType: "uint256", name: "round", type: "uint256" },
+    ],
+    name: "viewNFTpriceinCryptocurrency",
+    outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "round", type: "uint256" }],
+    name: "viewNFTpriceinEthers",
+    outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "to", type: "address" },
+      { internalType: "uint256", name: "amount", type: "uint256" },
+    ],
     name: "withdrawEthers",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256", name: "token", type: "uint256" },
+      { internalType: "address", name: "to", type: "address" },
+      { internalType: "uint256", name: "amount", type: "uint256" },
+    ],
+    name: "withdrawTokens",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
