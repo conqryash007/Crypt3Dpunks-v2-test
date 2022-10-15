@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { notifySuccess, notifyInfo, notifyError } from "./notification";
-import SwapImage from "../../Assets/Links/Crypt3d Punks Unreveal Wrapper.gif";
+import SwapImage from "../../Assets/Links/Crypt3d Punks Unreveal Wrapper.webm";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./SwapPortal.css";

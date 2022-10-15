@@ -1,5 +1,5 @@
 import React from "react";
-import HeaderTittle from "../../Assets/Links/Crypt3D Scirbble Animation Transparent.gif";
+import HeaderTittle from "../../Assets/Links/Crypt3D Scirbble Animation Transparent.webm";
 import "./HeroSection.css";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";

@@ -1,16 +1,15 @@
 import "./App.css";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
-
-import Mintpage from "./MintPage";
-import SwapPage from "./SwapPage";
-
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import { providerOptions } from "./web3Components/providerOptions";
 import { toHex } from "./web3Components/utils";
 import { final } from "./web3Components/config";
+
+const Mintpage = lazy(() => import("./MintPage"));
+const SwapPage = lazy(() => import("./SwapPage"));
 
 const web3Modal = new Web3Modal({
   cacheProvider: true, // optional
@@ -132,35 +131,37 @@ function App() {
   }, [provider]);
   return (
     <>
-      <Switch>
-        <Route
-          exact
-          path="/"
-          component={() => (
-            <Mintpage
-              cryptContract={cryptContract}
-              account={account}
-              connectWallet={connectWallet}
-              cusdt={cusdt}
-              cusdc={cusdc}
-              cdai={cdai}
-              cbusd={cbusd}
-            />
-          )}
-        ></Route>
-        <Route
-          exact
-          path="/swap"
-          component={() => (
-            <SwapPage
-              oldCryptContract={oldCryptContract}
-              cryptContract={cryptContract}
-              account={account}
-              connectWallet={connectWallet}
-            />
-          )}
-        />
-      </Switch>
+      <Suspense fallback={<div>Swap Loading...</div>}>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            component={() => (
+              <Mintpage
+                cryptContract={cryptContract}
+                account={account}
+                connectWallet={connectWallet}
+                cusdt={cusdt}
+                cusdc={cusdc}
+                cdai={cdai}
+                cbusd={cbusd}
+              />
+            )}
+          ></Route>
+          <Route
+            exact
+            path="/swap"
+            component={() => (
+              <SwapPage
+                oldCryptContract={oldCryptContract}
+                cryptContract={cryptContract}
+                account={account}
+                connectWallet={connectWallet}
+              />
+            )}
+          />
+        </Switch>
+      </Suspense>
     </>
   );
 }

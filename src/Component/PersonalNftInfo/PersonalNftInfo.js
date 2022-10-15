@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PersonalNftImage from "../../Assets/Links/Crypt3d Punks NFT Wrapper.gif";
+import PersonalNftImage from "../../Assets/Links/Crypt3d Punks NFT Wrapper.webm";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Entherium from "../../Assets/Links/Ethereum.png";
