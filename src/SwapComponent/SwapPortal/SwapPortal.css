@@ -10,6 +10,16 @@
   color: #fff;
   font-family: "Thunder Bold";
 }
+.portal-txt {
+  font-family: Ubuntu-Light;
+  color: white;
+}
+.CompletePrice {
+  color: white;
+}
+.bold-txt {
+  font-weight: 800;
+}
 .PersonalNftInfoTableWrap {
   width: 95%;
   display: flex;

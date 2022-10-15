@@ -25,8 +25,11 @@ const HeroSection = () => {
               data-aos-duration="3000"
             >
               <div>
-                <img
+                <video
                   className="main-gif"
+                  autoPlay
+                  muted
+                  loop
                   style={{ marginTop: "100px" }}
                   width="100%"
                   src={HeaderTittle}

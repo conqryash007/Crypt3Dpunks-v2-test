@@ -4,6 +4,16 @@ a,
 h1 {
   color: white;
   font-size: 20px;
+  font-family: Ubuntu-Light;
+}
+.sc {
+  color: white;
+}
+.bold-txt-1 {
+  font-weight: 600;
+}
+.bold-txt-2 {
+  font-weight: 800;
 }
 .upgradeWrap1 p,
 h3,

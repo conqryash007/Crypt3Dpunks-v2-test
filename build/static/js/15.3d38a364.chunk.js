@@ -1,2 +1,0 @@
-(this.webpackJsonpcrytpopunks=this.webpackJsonpcrytpopunks||[]).push([[15],{512:function(s,a,c){"use strict";c.r(a);c(8),c(513);var e=c(30);a.default=function(){return Object(e.jsx)("div",{children:Object(e.jsx)("div",{className:"ParalaxImage3",children:Object(e.jsx)("span",{className:"ParalaxImage1text",children:Object(e.jsx)("span",{className:"shadow-txt",children:"FAQ"})})})})}},513:function(s,a,c){}}]);
-//# sourceMappingURL=15.3d38a364.chunk.js.map

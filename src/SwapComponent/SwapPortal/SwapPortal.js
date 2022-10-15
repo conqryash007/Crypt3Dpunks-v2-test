@@ -139,7 +139,7 @@ const PersonalNftInfo = ({
                   ERC-721 Crtyp3d Punk NFT here.
                 </p>
               </div>
-              <img width="70%" src={SwapImage} alt="" />
+              <video autoPlay muted loop width="70%" src={SwapImage} alt="" />
               <h3 style={{ marginTop: "20px" }}>
                 ERC-1155 Punks in Wallet: {swapIds.length}
               </h3>

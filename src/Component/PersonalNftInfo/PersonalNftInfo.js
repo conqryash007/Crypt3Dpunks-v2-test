@@ -3528,7 +3528,10 @@ const PersonalNftInfo = ({
         style={{ margin: "auto" }}
       >
         <Col>
-          <img
+          <video
+            autoPlay
+            loop
+            muted
             data-aos="fade-left"
             data-aos-duration="2000"
             width="100%"

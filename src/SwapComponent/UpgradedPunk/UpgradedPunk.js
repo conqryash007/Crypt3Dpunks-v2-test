@@ -9,7 +9,7 @@ const UpgradedPunk = () => {
         data-aos="fade-left"
         data-aos-duration="2000"
       >
-        <p style={{ fontSize: "1.1vw" }} className="bold-txt-1">
+        <p style={{ fontSize: "1.1vw" }} className="sc bold-txt-1">
           GET YOUR UPGRADED PUNK
         </p>
         <div className="upgradeWrap1 pt-5 pb-5">
