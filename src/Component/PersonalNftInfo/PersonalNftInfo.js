@@ -3553,13 +3553,28 @@ const PersonalNftInfo = ({
                 <p>CURRENT TIER</p>
                 <p>HOW MANY? </p>
                 <p>
-                  EACH <img width="20px" src={Entherium} alt="" />
+                  EACH{" "}
+                  {whichCurr === 0 ? (
+                    <img width="20px" src={Entherium} alt="" />
+                  ) : (
+                    ""
+                  )}
                 </p>
                 <p>
-                  TOTAL <img width="20px" src={Entherium} alt="" />
+                  TOTAL{" "}
+                  {whichCurr === 0 ? (
+                    <img width="20px" src={Entherium} alt="" />
+                  ) : (
+                    ""
+                  )}
                 </p>
                 <p>
-                  SAVE <img width="20px" src={Entherium} alt="" />
+                  SAVE{" "}
+                  {whichCurr === 0 ? (
+                    <img width="20px" src={Entherium} alt="" />
+                  ) : (
+                    ""
+                  )}
                 </p>
                 <p>FREE LOOT</p>
                 <p>CHANCE TO WIN</p>
