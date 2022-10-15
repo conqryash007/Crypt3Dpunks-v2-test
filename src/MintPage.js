@@ -1,14 +1,18 @@
-import React from "react";
-
-import HeroSection from "./Component/HeroSection/HeroSection";
-import HowMint from "./Component/HowMint/HowMint";
-import Paralax from "./Component/Paralax/Paralax";
-import PersonalNftInfo from "./Component/PersonalNftInfo/PersonalNftInfo";
-import SocialConnect from "./Component/SocialConnect/SocialConnect";
-import Paralax1 from "./Component/Paralax1/Paralax1";
+import React, { lazy, Suspense } from "react";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
+
+const HeroSection = lazy(() => import("./Component/HeroSection/HeroSection"));
+const HowMint = lazy(() => import("./Component/HowMint/HowMint"));
+const Paralax = lazy(() => import("./Component/Paralax/Paralax"));
+const PersonalNftInfo = lazy(() =>
+  import("./Component/PersonalNftInfo/PersonalNftInfo")
+);
+const SocialConnect = lazy(() =>
+  import("./Component/SocialConnect/SocialConnect")
+);
+const Paralax1 = lazy(() => import("./Component/Paralax1/Paralax1"));
 
 AOS.init({
   // Global settings:
@@ -41,20 +45,37 @@ const MintPage = ({
 }) => {
   return (
     <div className="App">
-      <HeroSection></HeroSection>
-      <Paralax1></Paralax1>
-      <HowMint></HowMint>
-      <Paralax></Paralax>
-      <PersonalNftInfo
-        cryptContract={cryptContract}
-        account={account}
-        connectWallet={connectWallet}
-        cUSDT={cusdt}
-        cUSDC={cusdc}
-        cDAI={cdai}
-        cBUSD={cbusd}
-      ></PersonalNftInfo>
-      <SocialConnect></SocialConnect>
+      <Suspense fallback="Loading...">
+        <HeroSection></HeroSection>
+      </Suspense>
+
+      <Suspense fallback="Loading...">
+        <Paralax1></Paralax1>
+      </Suspense>
+
+      <Suspense fallback="Loading...">
+        <HowMint></HowMint>
+      </Suspense>
+
+      <Suspense fallback="Loading...">
+        <Paralax></Paralax>
+      </Suspense>
+
+      <Suspense fallback="Loading...">
+        <PersonalNftInfo
+          cryptContract={cryptContract}
+          account={account}
+          connectWallet={connectWallet}
+          cUSDT={cusdt}
+          cUSDC={cusdc}
+          cDAI={cdai}
+          cBUSD={cbusd}
+        ></PersonalNftInfo>
+      </Suspense>
+
+      <Suspense fallback="Loading...">
+        <SocialConnect></SocialConnect>
+      </Suspense>
     </div>
   );
 };

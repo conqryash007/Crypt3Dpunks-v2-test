@@ -1,12 +1,20 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 
-import HeroSection from "./SwapComponent/HeroSection/HeroSection";
-import SwapPortal from "./SwapComponent/SwapPortal/SwapPortal";
-import SocialConnect from "./SwapComponent/SocialConnect/SocialConnect";
-import Paralax2 from "./SwapComponent/Paralax2/Paralax2";
-import Paralax3 from "./SwapComponent/Paralax3/Paralax3";
-import UpgradedPunk from "./SwapComponent/UpgradedPunk/UpgradedPunk";
-import OgQuestions from "./SwapComponent/OgQuestions/OgQuestions";
+const HeroSection = lazy(() =>
+  import("./SwapComponent/HeroSection/HeroSection")
+);
+const SwapPortal = lazy(() => import("./SwapComponent/SwapPortal/SwapPortal"));
+const SocialConnect = lazy(() =>
+  import("./SwapComponent/SocialConnect/SocialConnect")
+);
+const Paralax2 = lazy(() => import("./SwapComponent/Paralax2/Paralax2"));
+const Paralax3 = lazy(() => import("./SwapComponent/Paralax3/Paralax3"));
+const UpgradedPunk = lazy(() =>
+  import("./SwapComponent/UpgradedPunk/UpgradedPunk")
+);
+const OgQuestions = lazy(() =>
+  import("./SwapComponent/OgQuestions/OgQuestions")
+);
 
 const SwapPage = ({
   oldCryptContract,
@@ -16,18 +24,38 @@ const SwapPage = ({
 }) => {
   return (
     <div className="App">
-      <HeroSection></HeroSection>
-      <Paralax2></Paralax2>
-      <UpgradedPunk></UpgradedPunk>
-      <SwapPortal
-        oldCryptContract={oldCryptContract}
-        cryptContract={cryptContract}
-        account={account}
-        connectWallet={connectWallet}
-      ></SwapPortal>
-      <Paralax3 />
-      <OgQuestions></OgQuestions>
-      <SocialConnect></SocialConnect>
+      <Suspense fallback="loading...">
+        <HeroSection></HeroSection>
+      </Suspense>
+
+      <Suspense fallback="loading...">
+        <Paralax2></Paralax2>
+      </Suspense>
+
+      <Suspense fallback="loading...">
+        <UpgradedPunk></UpgradedPunk>
+      </Suspense>
+
+      <Suspense fallback="loading...">
+        <SwapPortal
+          oldCryptContract={oldCryptContract}
+          cryptContract={cryptContract}
+          account={account}
+          connectWallet={connectWallet}
+        ></SwapPortal>
+      </Suspense>
+
+      <Suspense fallback="loading...">
+        <Paralax3 />
+      </Suspense>
+
+      <Suspense fallback="loading...">
+        <OgQuestions></OgQuestions>
+      </Suspense>
+
+      <Suspense fallback="loading...">
+        <SocialConnect></SocialConnect>
+      </Suspense>
     </div>
   );
 };
