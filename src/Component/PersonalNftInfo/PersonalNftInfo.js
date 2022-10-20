@@ -3074,7 +3074,7 @@ const PersonalNftInfo = ({
 
   const getPricingEth = async (round) => {
     try {
-      let pricesETH = await cryptContract.viewNFTpriceinEthers(round);
+      let pricesETH = await cryptContract.getPriceForARound(true, 18, round);
       pricesETH = pricesETH.map((curr) =>
         Number(ethers.utils.formatEther(curr))
       );
@@ -3087,8 +3087,8 @@ const PersonalNftInfo = ({
 
   const otherCurrencyPricing = async (idx, mult, round) => {
     try {
-      let pricesOtherCurr = await cryptContract.viewNFTpriceinCryptocurrency(
-        idx,
+      let pricesOtherCurr = await cryptContract.getPriceForARound(
+        false,
         mult[idx + 1],
         round
       );
@@ -3111,7 +3111,7 @@ const PersonalNftInfo = ({
       for (let j = 0; j < pricing.length; j++) {
         let obj = allCurrencyRoundInfoArray[k + 1][r][j];
         obj.total = pricing[j];
-        obj.each = (obj.total / obj.number).toFixed(2);
+        obj.each = +(obj.total / obj.number).toFixed(2);
         obj.save = calcSave(
           allCurrencyRoundInfoArray[k + 1][r][0].each,
           obj.each,
@@ -3287,6 +3287,7 @@ const PersonalNftInfo = ({
   };
 
   const mintCrypt3dPunkETH = async () => {
+    setDisable(true);
     try {
       const options = {
         value: ethers.utils.parseEther(
@@ -3319,8 +3320,10 @@ const PersonalNftInfo = ({
         notifyError("Something Went Wrong");
       }
     }
+    setDisable(false);
   };
   const mintCrypt3dPunkOther = async () => {
+    setDisable(true);
     try {
       notifyInfo("Your Transaction Has Started");
       const transaction = await cryptContract.batchMintUsingCryptoCurrency(
@@ -3357,8 +3360,10 @@ const PersonalNftInfo = ({
         notifyError("Something Went Wrong");
       }
     }
+    setDisable(false);
   };
   const approveCurrency = async (val) => {
+    setDisable(true);
     notifyInfo("Your Transaction Has Started");
 
     try {
@@ -3429,6 +3434,7 @@ const PersonalNftInfo = ({
         console.log(transactionReceipt);
       }
     } catch (err) {}
+    setDisable(false);
   };
 
   const getElementForOtherCurrency = () => {
@@ -3487,7 +3493,7 @@ const PersonalNftInfo = ({
             {">"}
           </button>
         </p>
-        <p>{round}</p>
+        <p>{`Tier ${round}`}</p>
         <p>
           <button className="btn-inc-dec" onClick={decBatchNum}>
             -
