@@ -49,25 +49,6 @@ const ABI = [
     anonymous: false,
     inputs: [
       {
-        indexed: true,
-        internalType: "address",
-        name: "previousOwner",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "newOwner",
-        type: "address",
-      },
-    ],
-    name: "OwnershipTransferred",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
         indexed: false,
         internalType: "address",
         name: "account",
@@ -121,6 +102,13 @@ const ABI = [
   },
   {
     inputs: [],
+    name: "Discount",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "EtherPrice",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
@@ -143,6 +131,26 @@ const ABI = [
   {
     inputs: [{ internalType: "address", name: "validator", type: "address" }],
     name: "addValidator",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256", name: "_round", type: "uint256" },
+      { internalType: "address", name: "_address", type: "address" },
+    ],
+    name: "addwhiteListAddress",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256", name: "_round", type: "uint256" },
+      { internalType: "address[]", name: "_addresses", type: "address[]" },
+    ],
+    name: "addwhiteListBatch",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -225,7 +233,7 @@ const ABI = [
     name: "currentState",
     outputs: [
       {
-        internalType: "enum CyptoPunks3dTest.CurrentState",
+        internalType: "enum CyptoPunks3d.CurrentState",
         name: "",
         type: "uint8",
       },
@@ -338,8 +346,11 @@ const ABI = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "renounceOwnership",
+    inputs: [
+      { internalType: "uint256", name: "_round", type: "uint256" },
+      { internalType: "address", name: "_address", type: "address" },
+    ],
+    name: "removeWhiteListAddress",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -438,20 +449,22 @@ const ABI = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
-    name: "transferOwnership",
+    inputs: [
+      { internalType: "bool", name: "newRound", type: "bool" },
+      { internalType: "uint256", name: "_EtherPrice", type: "uint256" },
+      { internalType: "uint256", name: "_discountPercentage", type: "uint256" },
+      { internalType: "uint256", name: "_whitelistTimeBound", type: "uint256" },
+    ],
+    name: "unpause",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
-    inputs: [
-      { internalType: "bool", name: "newRound", type: "bool" },
-      { internalType: "uint256", name: "_EtherPrice", type: "uint256" },
-    ],
-    name: "unpause",
-    outputs: [],
-    stateMutability: "nonpayable",
+    inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    name: "unpauseTimeStamp",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -482,6 +495,23 @@ const ABI = [
     inputs: [{ internalType: "address", name: "", type: "address" }],
     name: "validators",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256", name: "", type: "uint256" },
+      { internalType: "uint256", name: "", type: "uint256" },
+    ],
+    name: "whiteListedAddress",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "whitelistTimeBound",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },

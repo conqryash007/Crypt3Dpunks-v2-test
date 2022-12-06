@@ -27,7 +27,7 @@ if (network.name === "rinkeby") {
   TUSD = "0x0000000000085d4780B73119b644AE5ecd22b376";
 } else if (network.name === "goerli") {
   oldcrypt3dPunksAddress = "0xe8470ae2E17afa6892ed3494edBA0DBf064A4098";
-  crypt3dPunksAddress = "0x8Cf0753794b140e24B5e79ce13DC57f7F2Cc7590";
+  crypt3dPunksAddress = "0xa88F30449B723054C55308e7C82210AFEa982027";
   USDT = "0xE7DC78a7542Dc829fd4d84F96BfC971f3D82e051";
   USDC = "0x77c6f11c4f04C1Fd9b84A76DfE42a4FE293cA6d1";
   DAI = "0x9f5d82f9eCDC2110840EAA22a8189b834f53fa64";
